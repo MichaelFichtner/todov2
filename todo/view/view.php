@@ -117,6 +117,9 @@
                 </tr>-->
                 </tbody>
             </table>
+            <?php if($res){ ?>
+                <div class="alert alert-danger" role="alert"><?php $res ?></div>
+            <?php } ?>
         </div>
     </div>
     <!-- /.row -->

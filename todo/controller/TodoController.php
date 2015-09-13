@@ -2,7 +2,7 @@
 
 namespace todo;
 
-class todoController {
+class TodoController {
 
     public $eins;
 

@@ -4,6 +4,7 @@ namespace todo;
 
 $res = '';
 
+
 /**
  * Created by PhpStorm.
  * User: preacher
@@ -12,19 +13,19 @@ $res = '';
  */
 
 require_once "model/todo.php";
-require_once "controller/todoController.php";
+require_once "controller/TodoController.php";
 
 
-if(isset ($_POST["todo"]) && $_POST["todo"] > '') {
-    $res = test::saveDaten($_POST["todo"], $_POST["date"]);
+if(isset ($_POST["todo"]) && $_POST["todo"] > '' || isset ($_POST["date"]) && $_POST["date"] > '') {
+    $res = TodoController::saveDaten($_POST["todo"], $_POST["date"]);
 }
 
 if(isset ($_POST["id"]))
 {
-    $res = test::deleteDaten($_POST["id"]);
+    $res = TodoController::deleteDaten($_POST["id"]);
 }
 
-$daten = test::getDaten();
+$daten = TodoController::getDaten();
 include_once "view/view.php";
 
 
