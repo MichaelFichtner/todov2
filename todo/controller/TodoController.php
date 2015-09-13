@@ -2,7 +2,7 @@
 
 namespace todo;
 
-class test {
+class todoController {
 
     public $eins;
 
@@ -33,11 +33,18 @@ class test {
 
     public static function saveDaten($todo, $datum)
     {
-        if($todo && $datum) {
+        if($todo > '' && $datum > '') {
+
             $dbConnect = new todo();
 
             $daten = $dbConnect->saveData($todo, $datum);
         }else{
+            if(empty($todo)){
+                $daten = $datum;
+                return $daten;
+            }elseif(empty($datum)){
+                var_dump($todo);
+            }
             $daten = "fehler";
         }
 
