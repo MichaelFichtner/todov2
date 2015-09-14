@@ -98,7 +98,6 @@
                     <th scope="row">#</th>
                     <td><input type="text" value="<?php if (!$result){ echo (\todo\ErrorController::getDaten()[0] == 2) ? \todo\ErrorController::getDaten()[1] : '';}; ?>" name="todo"></td>
                     <td><input type="text" name="date" value="<?php if (!$result){ echo (\todo\ErrorController::getDaten()[0] == 1) ? \todo\ErrorController::getDaten()[1] : '';}; ?>"></td>
-
                     <td></td>
                 </tr>
                 <tr >
