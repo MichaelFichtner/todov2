@@ -22,6 +22,7 @@ class todo
             $password = '123';
 
             $this->conn = new PDO($server, $user, $password);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         catch(\PDOException $e){
             echo "ERROR: " . $e->getMessage();
@@ -32,7 +33,7 @@ class todo
 
     public function getdata()
     {
-        $query = 'SELECT * FROM todov1';
+        $query = 'SELECT id, toto, DATE_FORMAT (datum, "%d.%m.%Y") AS datum FROM todov1;';
 
         $stmt = $this->conn->prepare($query);
 
@@ -45,7 +46,10 @@ class todo
 
     public function saveData($todo, $datum)
     {
-        $query = 'INSERT INTO todov1 (toto, datum) VALUES ("'.$todo.'", "'.$datum.'")';
+        $date = new \DateTime($datum);
+        $datumEnglisch = $date->format('Y-m-d');
+
+        $query = 'INSERT INTO todov1 (toto, datum) VALUES ("'.$todo.'", "'.$datumEnglisch.'")';
 
         $stmt = $this->conn->exec($query);
 
