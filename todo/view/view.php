@@ -72,7 +72,7 @@
 
     <div class="row">
         <div class="col-lg-12 text-center">
-            <h1>A ToDo List v1</h1>
+            <h1>ToDo List v1</h1>
             <table class="table table-bordered">
                 <thead>
                 <tr>
@@ -96,29 +96,18 @@
                 ?>
                 <tr>
                     <th scope="row">#</th>
-                    <td><input type="text" value="" name="todo"></td>
-                    <td><input type="date" value="" name="date"></td>
-                    <td><input type="checkbox" value="" name=""></td>
+                    <td><input type="text" value="<?php if (!$result){ echo (\todo\ErrorController::getDaten()[0] == 2) ? \todo\ErrorController::getDaten()[1] : '';}; ?>" name="todo"></td>
+                    <td><input type="text" name="date" value="<?php if (!$result){ echo (\todo\ErrorController::getDaten()[0] == 1) ? \todo\ErrorController::getDaten()[1] : '';}; ?>"></td>
+                    <td></td>
                 </tr>
-                    <input type="submit">
-                    <?php if($res){echo $res;} ?>
+                <tr >
+                    <td colspan="4"><input type="submit" name="sende"></td>
+                </tr>
                 </form>
-                <!--<tr>
-                    <th scope="row">2</th>
-                    <td>Treffen Dennis</td>
-                    <td>Mittwoch in einer Woche</td>
-                    <td><input type="checkbox" value=""></td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Vorstellungsgespräch</td>
-                    <td>11.09.2015</td>
-                    <td><input type="checkbox" value=""></td>
-                </tr>-->
                 </tbody>
             </table>
-            <?php if($res){ ?>
-                <div class="alert alert-danger" role="alert"><?php $res ?></div>
+            <?php if(!$result){ ?>
+                <div class="alert alert-danger" role="alert"><?php echo \todo\ErrorController::getError(); ?></div>
             <?php } ?>
         </div>
     </div>

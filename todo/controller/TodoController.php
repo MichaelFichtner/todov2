@@ -33,21 +33,23 @@ class TodoController {
 
     public static function saveDaten($todo, $datum)
     {
-        if($todo > '' && $datum > '') {
+        if(!empty($todo) && !empty($datum)) {
 
             $dbConnect = new todo();
 
             $daten = $dbConnect->saveData($todo, $datum);
+
         }else{
             if(empty($todo)){
-                $daten = $datum;
-                return $daten;
+                ErrorController::setDaten(1, "$datum");
+                ErrorController::setError("Was soll ich für Dich merken ?");
+                $daten = false;
             }elseif(empty($datum)){
-                var_dump($todo);
+                ErrorController::setDaten(2, $todo);
+                ErrorController::setError("Bitte ein Datum eingeben");
+                $daten = false;
             }
-            $daten = "fehler";
         }
-
         return $daten;
     }
 
@@ -62,6 +64,28 @@ class TodoController {
         }
 
         return $daten;
+    }
+
+    public static function testDaten()
+    {
+        while (list ($key, $val) = each($_POST))
+        {
+            if (is_array($val))
+            {
+                for ($i = 0; $i < sizeof($val); $i++)
+                {
+                    echo $key. " = " . $val[$i];
+                    echo "<br />";
+                }
+
+            }
+            else
+            {
+                echo $key." = ".$val;
+            }
+            echo "<br />";
+        }
+
     }
 
 }
