@@ -12,6 +12,7 @@ namespace todo;
 require_once "model/todo.php";
 require_once "controller/TodoController.php";
 require_once "controller/ErrorController.php";
+require_once "controller/DateCheckController.php";
 
 
 if(array_key_exists('sende', $_POST)){
@@ -19,7 +20,7 @@ if(array_key_exists('sende', $_POST)){
         $result = TodoController::saveDaten($_POST["todo"], $_POST["date"]);
     }else{
         $result = false;
-        ErrorController::setDaten('', '');
+        ErrorController::setDaten('3', '');
         ErrorController::setError("Bitte Felder ausfüllen ...");
     }
 

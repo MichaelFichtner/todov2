@@ -33,6 +33,7 @@ class TodoController {
 
     public static function saveDaten($todo, $datum)
     {
+        $datumCheck = new DateCheckController($datum);
         if(!empty($todo) && !empty($datum)) {
 
             $dbConnect = new todo();
