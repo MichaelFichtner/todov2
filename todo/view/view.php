@@ -46,7 +46,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">ToDo v1</a>
+            <a class="navbar-brand" href="http://todo.dev">ToDo v1</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -106,7 +106,7 @@
                 </form>
                 </tbody>
             </table>
-            <?php if(!$result){ ?>
+            <?php if(!$result || !$daten){ ?>
                 <div class="alert alert-danger" role="alert"><?php echo \todo\ErrorController::getError(); ?></div>
             <?php } ?>
         </div>

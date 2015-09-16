@@ -33,22 +33,27 @@ class TodoController {
 
     public static function saveDaten($todo, $datum)
     {
-        $datumCheck = new DateCheckController($datum);
-        if(!empty($todo) && !empty($datum)) {
-
-            $dbConnect = new todo();
-
-            $daten = $dbConnect->saveData($todo, $datum);
-
+        if ($test = !DateCheckController::getDate($datum))
+        {
+            $daten = false;
+            return $daten;
         }else{
-            if(empty($todo)){
-                ErrorController::setDaten(1, "$datum");
-                ErrorController::setError("Was soll ich für Dich merken ?");
-                $daten = false;
-            }elseif(empty($datum)){
-                ErrorController::setDaten(2, $todo);
-                ErrorController::setError("Bitte ein Datum eingeben");
-                $daten = false;
+            if(!empty($todo) && !empty($datum)) {
+
+                $dbConnect = new todo();
+
+                $daten = $dbConnect->saveData($todo, $datum);
+
+            }else{
+                if(empty($todo)){
+                    ErrorController::setDaten(1, "$datum");
+                    ErrorController::setError("Was soll ich für Dich merken ?");
+                    $daten = false;
+                }elseif(empty($datum)){
+                    ErrorController::setDaten(2, $todo);
+                    ErrorController::setError("Bitte ein Datum eingeben");
+                    $daten = false;
+                }
             }
         }
         return $daten;

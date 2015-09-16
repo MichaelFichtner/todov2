@@ -33,30 +33,52 @@ class todo
 
     public function getdata()
     {
-        $query = 'SELECT id, toto, DATE_FORMAT (datum, "%d.%m.%Y") AS datum FROM todov1;';
+        try {
+            $query = 'SELECT id, toto, DATE_FORMAT (datum, "%d.%m.%Y") AS datum FROM todov1;';
 
-        $stmt = $this->conn->prepare($query);
+            $stmt = $this->conn->prepare($query);
 
-        $stmt->execute();
+            $stmt->execute();
 
-        $res = $stmt->fetchAll();
+            $res = $stmt->fetchAll();
 
-        return $res;
+            return $res;
+        }
+        catch(\PDOException $e){
+            ErrorController::setDaten("","");
+            ErrorController::setError("Datenbankfehler Nr.: ".$e->getCode());
+            return false;
+        }
     }
 
     public function saveData($todo, $datum)
     {
-        $date = new \DateTime($datum);
-        $datumEnglisch = $date->format('Y-m-d');
+        if (DateCheckController::dateCheck($datum) == "de")
+        {
+            $date = new \DateTime($datum);
+            $datumEnglisch = $date->format('Y-m-d');
+            //var_dump(DateCheckController::dateCheck($datum));
+        }elseif(DateCheckController::dateCheck($datum) == "us"){
+            $datumEnglisch = $datum;
+            //var_dump(DateCheckController::dateCheck($datum));
+        }else{
+            return false;
+        }
 
-        $query = 'INSERT INTO todov1 (toto, datum) VALUES ("'.$todo.'", "'.$datumEnglisch.'")';
+        try {
+            $query = 'INSERT INTO todov1 (toto, datum) VALUES ("' . $todo . '", "' . $datumEnglisch . '")';
 
-        $stmt = $this->conn->exec($query);
+            $stmt = $this->conn->exec($query);
 
-        $this->conn = null;
+            $this->conn = null;
 
-        return $stmt;
-
+            return $stmt;
+        }
+        catch(\PDOException $e){
+            ErrorController::setDaten("","");
+            ErrorController::setError("Datenbankfehler Nr.: ".$e->getCode());
+            return false;
+        }
     }
 
     public function delData($ids)
