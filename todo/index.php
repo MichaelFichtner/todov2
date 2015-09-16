@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: preacher
@@ -7,12 +8,11 @@
  */
 
 namespace todo;
+require '../vendor/autoload.php';
 
-
-require_once "model/todo.php";
-require_once "controller/TodoController.php";
-require_once "controller/ErrorController.php";
-require_once "controller/DateCheckController.php";
+/** Debug config **/
+use Kint;
+Kint::$theme = 'solarized-dark';
 
 
 if(array_key_exists('sende', $_POST)){
