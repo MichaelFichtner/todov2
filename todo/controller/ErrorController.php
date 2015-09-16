@@ -12,8 +12,8 @@ namespace todo;
 class ErrorController
 {
 
-    protected static $daten = [];
-    protected static $error;
+    protected static $daten = '';
+    protected static $error = '';
 
     /**
      * @return mixed

@@ -19,7 +19,7 @@ if(array_key_exists('sende', $_POST)){
         $result = TodoController::saveDaten($_POST["todo"], $_POST["date"]);
     }else{
         $result = false;
-        ErrorController::setDaten(3, '');
+        ErrorController::setDaten('', '');
         ErrorController::setError("Bitte Felder ausfüllen ...");
     }
 
@@ -34,6 +34,8 @@ if(array_key_exists('sende', $_POST)){
 
 
 $daten = TodoController::getDaten();
+
+var_dump(ErrorController::getDaten());
 
 include_once "view/view.php";
 
