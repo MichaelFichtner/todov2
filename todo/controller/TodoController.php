@@ -4,23 +4,6 @@ namespace todo;
 
 class TodoController {
 
-    public $eins;
-
-    public function summe($eins)
-    {
-        $this->eins = $eins;
-
-        return $this->eins;
-    }
-
-    public function wasda()
-    {
-        $zahl = $this->eins;
-        $zahl2 = 12;
-
-        return $zahl+$zahl2;
-    }
-
     public static function getDaten()
     {
 

@@ -57,6 +57,7 @@ crashlytics-build.properties
 
 /puphpet
 /html
+/.directory
 /vendor
 # Created by .ignore support plugin (hsz.mobi)
 
