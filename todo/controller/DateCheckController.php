@@ -11,39 +11,53 @@ namespace todo;
 
 class DateCheckController
 {
-    protected static $datum;
+    protected static $date;
+    protected static $todo;
     protected static $res;
     protected static $match_us = "^(19|20)[0-9]{2}[.](0[1-9]|1[012])[.](0[1-9]|[12][0-9]|3[01])$^";
     protected static $match_de = "^(0[1-9]|[12][0-9]|3[01])[.](0[1-9]|1[012])[.](19|20)[0-9]{2}$^";
 
 
-    public static function getDate($date)
+    /**
+     * @param $date
+     * @param $todo zur Fehlererzeugung
+     * @return bool|string
+     */
+    public static function getDate($date, $todo)
     {
-        self::$datum = $date;
-        if(ctype_digit(str_replace(".","", $date))){
-            if (strlen($date) == 10){
-                return true;
+        self::$date = $date;
+        self::$todo = $todo;
+        if(ctype_digit(str_replace(".","", $date))){ // nummerisch ?
+            if (strlen($date) == 10){               // anzahl zeichen = 10
+                return self::dateCheck(self::$date);       // test auf Datum Format
             }else{
-                ErrorController::setDaten("","");
+                ErrorController::setDaten(2, $todo);
                 ErrorController::setError("min. 8 Zeichen");
                 return false;
             }
         }else{
-            ErrorController::setDaten("","");
+            //
+            ErrorController::setDaten(2, $todo);
             ErrorController::setError("Nur Zahlen erlaubt !");
             return false;
         }
     }
 
-    public static function dateCheck($var)
+    /**
+     * @param $date
+     * @return bool|string
+     */
+    public static function dateCheck($date)
     {
-       //var_dump($var);
-        if(preg_match(self::$match_de, $var)) {
-            return "de";
-        }elseif(preg_match(self::$match_us, $var)){
-            return "us";
+
+        if(preg_match(self::$match_de, $date)) {
+            $dateCheck = new \DateTime($date);
+            $date = $dateCheck->format('Y-m-d');
+            return $date;
+        }elseif(preg_match(self::$match_us, $date)){
+            return $date;
         }else{
-            ErrorController::setDaten("","");
+            ErrorController::setDaten(2, self::$todo);
             ErrorController::setError("Bitte ein Korrektes Datum eingeben. (tt.mm.yyyy o. yyyy.mm.tt)");
             return false;
         }

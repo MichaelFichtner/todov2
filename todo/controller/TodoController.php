@@ -31,31 +31,43 @@ class TodoController {
         return $daten;
     }
 
+    /**
+     * @param $todo
+     * @param $datum
+     * @return bool|int
+     * $todo muss noch Validiert werden !
+     */
     public static function saveDaten($todo, $datum)
     {
-        if ($test = !DateCheckController::getDate($datum))
-        {
-            $daten = false;
-            return $daten;
-        }else{
+
             if(!empty($todo) && !empty($datum)) {
 
-                $dbConnect = new todo();
+                //$valTodo='';
+                $valDate=DateCheckController::getDate($datum, $todo);
+                if($valDate){
+                    $dbConnect = new todo();
+                    $daten = $dbConnect->saveData($todo, $valDate);
+                }else{
+                    $daten = false;
+                }
 
-                $daten = $dbConnect->saveData($todo, $datum);
 
             }else{
                 if(empty($todo)){
-                    ErrorController::setDaten(1, "$datum");
+                    if ($valDate=!DateCheckController::getDate($datum, $todo))
+                    {
+                        $daten = false;
+                    }
+                    else{
+                    ErrorController::setDaten(1, $datum);
                     ErrorController::setError("Was soll ich für Dich merken ?");
-                    $daten = false;
+                    $daten = false;}
                 }elseif(empty($datum)){
                     ErrorController::setDaten(2, $todo);
                     ErrorController::setError("Bitte ein Datum eingeben");
                     $daten = false;
                 }
             }
-        }
         return $daten;
     }
 

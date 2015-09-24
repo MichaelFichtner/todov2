@@ -36,7 +36,8 @@ if(array_key_exists('sende', $_POST)){
 
 $daten = TodoController::getDaten();
 
-//var_dump(ErrorController::getDaten());
+//var_dump($daten);
+//ddd($daten);
 
 include_once "view/view.php";
 

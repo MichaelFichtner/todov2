@@ -51,22 +51,10 @@ class todo
         }
     }
 
-    public function saveData($todo, $datum)
+    public function saveData($todo, $valDate)
     {
-        if (DateCheckController::dateCheck($datum) == "de")
-        {
-            $date = new \DateTime($datum);
-            $datumEnglisch = $date->format('Y-m-d');
-            //var_dump(DateCheckController::dateCheck($datum));
-        }elseif(DateCheckController::dateCheck($datum) == "us"){
-            $datumEnglisch = $datum;
-            //var_dump(DateCheckController::dateCheck($datum));
-        }else{
-            return false;
-        }
-
         try {
-            $query = 'INSERT INTO todov1 (toto, datum) VALUES ("' . $todo . '", "' . $datumEnglisch . '")';
+            $query = 'INSERT INTO todov1 (toto, datum) VALUES ("' . $todo . '", "' . $valDate . '")';
 
             $stmt = $this->conn->exec($query);
 
